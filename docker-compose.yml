@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  teamspeak:
+    image: ${TEAMSPEAK_IMAGE}
+    restart: always
+    ports:
+    - 9987:9987/udp
+    - 10011:10011
+    - 30033:30033
+    env_file:
+    - .env.ts
+    environment:
+      TS3SERVER_DB_PLUGIN: ts3db_mariadb
+      TS3SERVER_DB_SQLCREATEPATH: create_mariadb
+      TS3SERVER_DB_HOST: db
+      TS3SERVER_DB_WAITUNTILREADY: 30
+      TS3SERVER_LICENSE: accept
+    volumes:
+    #START - only for linux
+    - /etc/timezone:/etc/timezone:ro
+    - /etc/localtime:/etc/localtime:ro
+    #END - only for linux
+    - ./ts:/var/ts3server
+    depends_on:
+    - db
+    deploy:
+      resources:
+        limits:
+          cpus: '0.40'
+          memory: 100M
+        reservations:
+          cpus: '0.10'
+          memory: 20M
+
+  db:
+    image: ${DB_IMAGE}
+    restart: always
+    env_file:
+    - .env.db
+    volumes:
+    #START - only for linux
+    - /etc/timezone:/etc/timezone:ro
+    - /etc/localtime:/etc/localtime:ro
+    #END - only for linux
+    - ./db:/var/lib/mysql
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 200M
+        reservations:
+          cpus: '0.20'
+          memory: 100M
