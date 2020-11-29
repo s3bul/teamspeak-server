@@ -1,7 +1,7 @@
 /.idea/
-/db/
+/db/*
 !db/.gitkeep
-/ts/
+/ts/*
 !ts/.gitkeep
 .env.db
 .env.ts
