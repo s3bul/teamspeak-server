@@ -20,6 +20,10 @@ copyEnv() {
     cp .env.db.dist .env.db
 }
 
+swarmInit() {
+  docker swarm init
+}
+
 firstCommand=$1
 shift
 
@@ -33,8 +37,11 @@ rm)
 env)
   copyEnv
   ;;
+swarm-init)
+  swarmInit
+  ;;
 *)
-  echo "Commands: [deploy|rm|env]" >&2
+  echo "Commands: [deploy|rm|env|swarm-init]" >&2
   exit 1
   ;;
 esac

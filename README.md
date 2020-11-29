@@ -9,4 +9,5 @@
 * Configure env
   * `./docker.sh env`
   * Set envs in `.env.db` and `.env.ts`
+* Swarm init `./docker.sh swarm-init`
 * Run containers `./docker.sh`
