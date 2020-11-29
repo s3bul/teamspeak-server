@@ -5,7 +5,7 @@
 
 ## Start
 * Clone project `git clone https://github.com/s3bul/teamspeak-server.git`
-* Move to project dir `cd teamspeak-server`
+* Go to project dir `cd teamspeak-server`
 * Configure env
   * `./docker.sh env`
   * Set envs in `.env.db` and `.env.ts`
