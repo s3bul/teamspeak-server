@@ -44,7 +44,7 @@ services:
     - /etc/localtime:/etc/localtime:ro
     #END - only for linux
     - ./db:/var/lib/mysql
-    - ./.docker/db/conf.d/teamspeak.cnf:/etc/mysql/conf.d/teamspeak.cnf
+    - ./.docker/db/conf.d/teamspeak.cnf:/etc/mysql/conf.d/teamspeak.cnf:ro
     deploy:
       resources:
         limits:
