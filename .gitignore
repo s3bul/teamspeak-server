@@ -5,3 +5,5 @@
 !ts/.gitkeep
 .env.db
 .env.ts
+/backup/*
+!backup/.gitkeep
