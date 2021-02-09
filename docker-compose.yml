@@ -24,6 +24,11 @@ services:
     - ./ts:/var/ts3server
     depends_on:
     - db
+    healthcheck:
+      test: nc -uz localhost 9987 && nc -z localhost 10011 && nc -z localhost 30033
+      interval: 10s
+      timeout: 3s
+      retries: 25
     deploy:
       resources:
         limits:
@@ -45,6 +50,11 @@ services:
     #END - only for linux
     - ./db:/var/lib/mysql
     - ./.docker/db/conf.d/teamspeak.cnf:/etc/mysql/conf.d/teamspeak.cnf:ro
+    healthcheck:
+      test: mysqladmin ping -h localhost -p$$MYSQL_ROOT_PASSWORD
+      interval: 5s
+      timeout: 2s
+      retries: 25
     deploy:
       resources:
         limits:
