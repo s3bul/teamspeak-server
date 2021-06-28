@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.9'
 
 services:
   teamspeak:
@@ -41,8 +41,14 @@ services:
   db:
     image: ${DB_IMAGE}
     restart: always
+    secrets:
+    - db_root_password
+    - db_password
     env_file:
     - .env.db
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+      MYSQL_PASSWORD_FILE: /run/secrets/db_password
     volumes:
     #START - only for linux
     - /etc/timezone:/etc/timezone:ro
@@ -63,3 +69,9 @@ services:
         reservations:
           cpus: '0.20'
           memory: 100M
+
+secrets:
+  db_root_password:
+    file: ./secrets/db_root_password.txt
+  db_password:
+    file: ./secrets/db_password.txt
