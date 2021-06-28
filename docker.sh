@@ -3,7 +3,8 @@
 serviceName=teamspeak
 
 generateSwarmConfig() {
-  (docker-compose config | sed -E "s,(cpus: )([0-9\.]+),\1'\2',g" >swarm.yml) ||
+  (docker-compose config | sed -E "s,(cpus: )([0-9\.]+),\1'\2',g" |
+    sed -zE "s,[ ]{2}(db):\s*condition: service_started\s*\n,- \1\n,g" >swarm.yml) ||
     exit 1
 }
 
