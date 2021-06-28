@@ -6,3 +6,5 @@
 .env.ts
 /backup/*
 !backup/.gitkeep
+/secrets/*
+!secrets/.gitkeep
