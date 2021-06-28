@@ -3,28 +3,33 @@
 serviceName=teamspeak
 
 generateSwarmConfig() {
-  docker-compose config | sed -E "s,(cpus: )([0-9\.]+),\1'\2',g" >swarm.yml
+  (docker-compose config | sed -E "s,(cpus: )([0-9\.]+),\1'\2',g" >swarm.yml) ||
+    exit 1
 }
 
 stackDeploy() {
-  generateSwarmConfig &&
-    docker stack deploy -c swarm.yml ${serviceName}
+  (generateSwarmConfig &&
+    docker stack deploy -c swarm.yml ${serviceName}) ||
+    exit 1
 }
 
 stackRm() {
-  docker stack rm ${serviceName}
+  docker stack rm ${serviceName} ||
+    exit 1
 }
 
 copyEnv() {
-  cp .env.ts.dist .env.ts &&
-    cp .env.db.dist .env.db
+  (cp .env.ts.dist .env.ts &&
+    cp .env.db.dist .env.db) ||
+    exit 1
 }
 
 swarmInit() {
-  docker swarm init
+  docker swarm init ||
+    exit 1
 }
 
-firstCommand=$1
+firstCommand="$1"
 shift
 
 case "${firstCommand}" in
