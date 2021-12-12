@@ -57,7 +57,7 @@ services:
     - ./db:/var/lib/mysql
     - ./.docker/db/conf.d/teamspeak.cnf:/etc/mysql/conf.d/teamspeak.cnf:ro
     healthcheck:
-      test: mysqladmin ping -h localhost -p$$MYSQL_ROOT_PASSWORD
+      test: mysqladmin ping -p$$(cat $${MYSQL_ROOT_PASSWORD_FILE})
       interval: 5s
       timeout: 2s
       retries: 25
