@@ -16,6 +16,10 @@ services:
       TS3SERVER_DB_HOST: db
       TS3SERVER_DB_WAITUNTILREADY: 30
       TS3SERVER_LICENSE: accept
+#    extra_hosts:
+#    - accounting.teamspeak.com:127.0.0.1
+#    - backupaccounting.teamspeak.com:127.0.0.1
+#    - ipcheck.teamspeak.com:127.0.0.1
     volumes:
     #START - only for linux
     - /etc/timezone:/etc/timezone:ro
