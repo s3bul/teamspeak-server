@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
 
 serviceName=teamspeak
+fileConfig=swarm.yml
 
 generateSwarmConfig() {
   (docker-compose config | sed -E "s,(cpus: )([0-9\.]+),\1'\2',g" |
-    sed -zE "s,[ ]{2}(db):\s*condition: service_started\s*\n,- \1\n,g" >swarm.yml) ||
+    sed -zE "s,[ ]{2}(db):\s*condition: service_started\s*\n,- \1\n,g" >${fileConfig}) ||
     exit 1
 }
 
 stackDeploy() {
   (generateSwarmConfig &&
-    docker stack deploy -c swarm.yml ${serviceName}) ||
+    docker stack deploy -c ${fileConfig} ${serviceName}) ||
     exit 1
 }
 
@@ -52,4 +53,4 @@ swarm-init)
   ;;
 esac
 
-exit 0
+exit $?
