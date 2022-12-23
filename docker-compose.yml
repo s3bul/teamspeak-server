@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   teamspeak:
-    image: ${TEAMSPEAK_IMAGE}
+    image: ${IMAGE_TEAMSPEAK_NAME}:${IMAGE_TEAMSPEAK_VERSION}
     restart: always
     ports:
     - 9987:9987/udp
@@ -21,7 +21,7 @@ services:
     - /etc/timezone:/etc/timezone:ro
     - /etc/localtime:/etc/localtime:ro
     #END - only for linux
-    - ./ts:/var/ts3server
+    - .docker/data/ts:/var/ts3server
     depends_on:
     - db
     healthcheck:
@@ -39,7 +39,7 @@ services:
           memory: 20M
 
   db:
-    image: ${DB_IMAGE}
+    image: ${IMAGE_DB_NAME}:${IMAGE_DB_VERSION}
     restart: always
     secrets:
     - db_root_password
@@ -54,8 +54,8 @@ services:
     - /etc/timezone:/etc/timezone:ro
     - /etc/localtime:/etc/localtime:ro
     #END - only for linux
-    - ./db:/var/lib/mysql
-    - ./.docker/db/conf.d/teamspeak.cnf:/etc/mysql/conf.d/teamspeak.cnf:ro
+    - .docker/data/db:/var/lib/mysql
+    - .docker/db/conf.d/teamspeak.cnf:/etc/mysql/conf.d/teamspeak.cnf:ro
     healthcheck:
       test: mysqladmin ping -p$$(cat $${MYSQL_ROOT_PASSWORD_FILE})
       interval: 5s

@@ -1,10 +1,2 @@
 /.idea/
-/db/*
-!db/.gitkeep
-/ts/*
-!ts/.gitkeep
 .env.ts
-/backup/*
-!backup/.gitkeep
-/secrets/*
-!secrets/.gitkeep
