@@ -16,8 +16,8 @@ services:
       TS3SERVER_DB_HOST: db
       TS3SERVER_DB_WAITUNTILREADY: 30
       TS3SERVER_DB_CONNECTIONS: 1
-      TS3SERVER_LOG_APPEND: 1
       TS3SERVER_LICENSE: accept
+      TS3SERVER_LOG_APPEND: 1
 #    extra_hosts:
 #    - accounting.teamspeak.com:127.0.0.1
 #    - backupaccounting.teamspeak.com:127.0.0.1
