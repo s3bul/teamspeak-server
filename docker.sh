@@ -65,7 +65,7 @@ _pwgen() {
 
 generatePasswords() {
   if [ ! -f "./secrets/db_root_password.txt" ]; then
-    _pwgen "20 1 >./secrets/db_root_password.txt" && _pwgen "20 1 >./secrets/db_password.txt"
+    _pwgen "20 1 >./secrets/db_root_password.txt" && _pwgen "20 1 >./secrets/db_password.txt" && _pwgen "20 1 >./secrets/serveradmin_password.txt"
   fi
 }
 

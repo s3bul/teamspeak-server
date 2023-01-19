@@ -6,6 +6,7 @@ services:
     restart: unless-stopped
     secrets:
     - db_password
+    - serveradmin_password
     ports:
     - 9987:9987/udp
     - 10011:10011
@@ -74,3 +75,5 @@ secrets:
     file: ./secrets/db_root_password.txt
   db_password:
     file: ./secrets/db_password.txt
+  serveradmin_password:
+    file: ./secrets/serveradmin_password.txt
