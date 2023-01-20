@@ -12,7 +12,7 @@ services:
     - 10011:10011
     - 30033:30033
     env_file:
-    - .env.ts
+    - .env.teamspeak
 #    extra_hosts:
 #    - accounting.teamspeak.com:127.0.0.1
 #    - backupaccounting.teamspeak.com:127.0.0.1
