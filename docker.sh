@@ -32,8 +32,9 @@ serviceName=teamspeak
 fileConfig=swarm.yml
 
 printCommand() {
-  printf "%bCommand: %b$*%b\n" \
-    "${BLUE}" "${LGREEN}" "${NC}"
+  printf "%bCommand: %b$*%b" \
+    "${BLUE}" "${LGREEN}" "${NC}" | sed -z "s/\n/\\\n/g" &&
+    printf "\n"
 }
 
 _command() {
@@ -87,9 +88,7 @@ dockerSwarm() {
 }
 
 generateSwarmConfig() {
-  dockerConfig "| sed -e \"s/$(readlink -f "$(dirname "$0")" | sed -e "s/\//\\\\\//g")/\./\" |
-    sed -E \"s,(cpus: )([0-9\.]+),\1'\2',g\" |
-    sed -zE \"s,[ ]{2}(db):\s*condition: service_started\s*\n,- \1\n,g\" > ${fileConfig}"
+  dockerConfig "| sed -e \"s/$(readlink -f "$(dirname "$0")" | sed -e "s/\//\\\\\//g")/\./\" | sed -E \"s,(cpus: )([0-9\.]+),\1'\2',g\" | sed -zE \"s,[ ]{2}(db):\s*condition: service_started\s*\n,- \1\n,g\" > ${fileConfig}"
 }
 
 stackDeploy() {
