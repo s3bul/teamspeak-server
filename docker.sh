@@ -115,9 +115,6 @@ case "${firstCommand}" in
 upd | "")
   composeUp -d
   ;;
-deploy)
-  stackDeploy
-  ;;
 rm)
   stackRm
   ;;
@@ -128,7 +125,7 @@ swarm-init)
   swarmInit
   ;;
 *)
-  echo "Commands: [deploy|rm|secrets|swarm-init]" >&2
+  echo "Commands: [upd|rm|secrets|swarm-init]" >&2
   exit 1
   ;;
 esac
