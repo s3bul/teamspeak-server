@@ -104,11 +104,18 @@ swarmInit() {
   dockerSwarm init
 }
 
+composeUp() {
+  _docker compose up "$@"
+}
+
 firstCommand="$1"
 shift
 
 case "${firstCommand}" in
-deploy | "")
+upd | "")
+  composeUp -d
+  ;;
+deploy)
   stackDeploy
   ;;
 rm)

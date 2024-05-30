@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   teamspeak:
     image: ${IMAGE_TEAMSPEAK_NAME}:${IMAGE_TEAMSPEAK_VERSION}
@@ -24,7 +22,8 @@ services:
     #END - only for linux
     - .docker/data/ts:/var/ts3server
     depends_on:
-    - db
+      db:
+        condition: service_healthy
     healthcheck:
       test: nc -uz localhost 9987 && nc -z localhost 10011 && nc -z localhost 30033
       interval: 10s
@@ -34,11 +33,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.40'
-          memory: 100M
+          cpus: '1.00'
+          memory: 384M
         reservations:
-          cpus: '0.10'
-          memory: 20M
+          cpus: '0.50'
+          memory: 128M
 
   db:
     image: ${IMAGE_DB_NAME}:${IMAGE_DB_VERSION}
@@ -64,11 +63,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.50'
-          memory: 200M
+          cpus: '1.00'
+          memory: 512M
         reservations:
-          cpus: '0.20'
-          memory: 100M
+          cpus: '0.50'
+          memory: 256M
 
 secrets:
   db_root_password:
